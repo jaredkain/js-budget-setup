@@ -47,12 +47,30 @@ showBalance(){
     this.balance.classList.remove('showRed', 'showBlack');
     this.balance.classList.add('showGreen');
   }
-  if(total === 0){
+  else if(total === 0){
     this.balance.classList.remove('showRed', 'showGreen');
     this.balance.classList.add('showBlack');
   }
 }
-  //total expense
+//submit expense form
+submitExpenseForm(){
+  const expenseValue = this.expenseInput.value;
+  const amountValue = this.amountInput.value;
+  if(expenseValue === '' || amountValue === '' || amountValue < 0){
+    this.expenseFeedback.classList.add('showItem');
+    this.expenseFeedback.innerHTML = `<p>values cannot be empty or negative</p>`;
+    const self = this;
+    setTimeout(function(){
+      self.expenseFeedback.classList.remove('showItem');
+    },4000);
+  }
+  else{
+    
+  }
+}
+
+
+//total expense
 totalExpense(){
   let total = 400;
   return total;
@@ -61,7 +79,7 @@ totalExpense(){
 
 function eventListeners(){
 const budgetForm = document.getElementById('budget-form');
-const expensetForm = document.getElementById('expense-form');
+const expenseForm = document.getElementById('expense-form');
 const expenseList = document.getElementById('expense-list');
 
 
@@ -72,11 +90,12 @@ const ui = new UI()
 budgetForm.addEventListener('submit', function(event){
   event.preventDefault();
   ui.submitBudgetForm();
-})
+});
 // expense form submit
 expenseForm.addEventListener('submit', function(event){
   event.preventDefault();
-})
+  ui.submitExpenseForm();
+});
 // expense click
 expenseList.addEventListener('click', function(){
 
